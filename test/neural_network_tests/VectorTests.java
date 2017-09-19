@@ -16,13 +16,13 @@ public class VectorTests {
     public void test_vector_0_0_0_size_return_3() {
         int size = 3;
         Vector vector = new Vector(size);
-        assertEquals(vector.size(), size);
+        assertEquals(vector.getSize(), size);
     }
     
     @Test
     public void test_vector_0_1f_0_value_by_index_1_return_1f() {
         Vector vector = new Vector(new float[] {0, 1f, 0});
-        assertEquals(vector.value(1), 1f, 0);
+        assertEquals(vector.getValue(1), 1f, 0);
     }
     
     @Test
@@ -31,7 +31,7 @@ public class VectorTests {
         
         boolean thrown = false;
         try {
-            float value = vector.value(3);
+            float value = vector.getValue(3);
         } catch (IndexOutOfBoundsException e) {
             thrown = true;
         }
@@ -45,10 +45,10 @@ public class VectorTests {
         Vector vector = new Vector(vectorSize);
         vector.setValue(1f, 1);
         
-        assertEquals(vector.value(0), 0, 0);
-        assertEquals(vector.value(1), 1f, 0);
-        assertEquals(vector.value(2), 0, 0);
-        assertEquals(vector.value(3), 0, 0);
+        assertEquals(vector.getValue(0), 0, 0);
+        assertEquals(vector.getValue(1), 1f, 0);
+        assertEquals(vector.getValue(2), 0, 0);
+        assertEquals(vector.getValue(3), 0, 0);
     }
     
     @Test
@@ -58,7 +58,7 @@ public class VectorTests {
         
         boolean thrown = false;
         try {
-            float value = vector.value(3);
+            float value = vector.getValue(3);
         } catch (IndexOutOfBoundsException e) {
             thrown = true;
         }

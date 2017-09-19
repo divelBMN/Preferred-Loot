@@ -51,7 +51,7 @@ public class Item {
      * Interface for quality as String.
      * @return 
      */
-    public String qualityTitle() {
+    public String getQualityTitle() {
         return this.qualityToString();
     }
     
@@ -59,12 +59,12 @@ public class Item {
      * Interface for signals vector.
      * @return 
      */
-    public Vector signalsVector() {
-        return this.getSignalsVector();
+    public Vector getSignalsVector() {
+        return this.createSignalsVector();
     }
     
     
-    
+     
     /**
      * Translating quality to String.
      * @return 
@@ -101,7 +101,7 @@ public class Item {
      * Index of this value is determined by quality of the Item.
      * @return 
      */
-    private Vector getSignalsVector() {
+    private Vector createSignalsVector() {
         int size = 6;
         Vector result = new Vector(size);
         

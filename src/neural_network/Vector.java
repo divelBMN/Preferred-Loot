@@ -38,7 +38,7 @@ public class Vector {
      * Interface for amount of values
      * @return 
      */
-    public int size() {
+    public int getSize() {
         return this.values.length;
     }
     
@@ -47,7 +47,7 @@ public class Vector {
      * @param index
      * @return 
      */
-    public float value(int index) throws IndexOutOfBoundsException {
+    public float getValue(int index) throws IndexOutOfBoundsException {
         if (index < this.values.length) {
             return this.values[index];
         } else {
