@@ -6,7 +6,7 @@
 package neural_network;
 
 /**
- * Class Vector use for work with input/output signals and weights of neurons.
+ * Class Vector used for work with input/output signals and weights of neurons.
  */
 public class Vector {
     
@@ -33,6 +33,14 @@ public class Vector {
     }
     
     
+    
+    /**
+     * Interface for amount of values
+     * @return 
+     */
+    public int size() {
+        return this.values.length;
+    }
     
     /**
      * Interface for getting value by index.

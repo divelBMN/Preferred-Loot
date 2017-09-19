@@ -13,6 +13,13 @@ import neural_network.Vector;
 public class VectorTests {
     
     @Test
+    public void test_vector_0_0_0_size_return_3() {
+        int size = 3;
+        Vector vector = new Vector(size);
+        assertEquals(vector.size(), size);
+    }
+    
+    @Test
     public void test_vector_0_1f_0_value_by_index_1_return_1f() {
         Vector vector = new Vector(new float[] {0, 1f, 0});
         assertEquals(vector.value(1), 1f, 0);
