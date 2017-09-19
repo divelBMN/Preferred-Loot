@@ -4,7 +4,13 @@
  */
 package loot_list;
 
+
+
+import java.util.Random;
+
 import neural_network.Vector;
+
+
 
 /**
  * Class Item contains information about Quality.
@@ -18,6 +24,7 @@ public class Item {
     
     
     private Quality quality;
+    private final int QualitiesGradationAmount = 6;
     
     
     
@@ -28,6 +35,14 @@ public class Item {
      */
     public Item(Quality quality) {
         this.quality = quality;
+    }
+    
+    /**
+     * Constructor.
+     * Making Item with random quality
+     */
+    public Item() {
+        this.quality = this.generateRandomQuality();
     }
     
     
@@ -95,5 +110,43 @@ public class Item {
         result.setValue(value, indexOfQuality);
         
         return result;
+    }
+    
+    /**
+     * Generating random QualitiesGradation.
+     * @return 
+     */
+    private Quality generateRandomQuality() {
+        Quality result = Quality.SET;
+        int index = this.generateRandomQualitiesIndex();
+        
+        switch (index) {
+            case 0:
+                result = Quality.BAD;
+                break;
+            case 1:
+                result = Quality.COMMON;
+                break;
+            case 2:
+                result = Quality.GOOD;
+                break;
+            case 3:
+                result = Quality.RARE;
+                break;
+            case 4:
+                result = Quality.EPIC;
+        }
+        
+        return result;
+    }
+    
+    /**
+     * Generating random index of QualitiesGradation.
+     * @return 
+     */
+    private int generateRandomQualitiesIndex() {
+        Random random = new Random();
+        
+        return random.nextInt(this.QualitiesGradationAmount);
     }
 }
