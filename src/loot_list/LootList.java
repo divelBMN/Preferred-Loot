@@ -11,7 +11,7 @@ import java.util.Random;
  * Class Loot List generate and contains Items.
  * This class simulate loot system of game.
  */
-public class Loot_List {
+public class LootList {
     
     private Item[] items;
     
@@ -25,7 +25,7 @@ public class Loot_List {
      * Creating random quality items.
      * @param amount size of Loot List 
      */
-    public Loot_List(int amount) {
+    public LootList(int amount) {
         this.createLootList(amount);
     }
     
@@ -33,14 +33,48 @@ public class Loot_List {
      * Constructor.
      * Creating a random amount of random quality items.
      */
-    public Loot_List() {
+    public LootList() {
         int amount = this.generateRandomLootListsSize();
         this.createLootList(amount);
     }
         
+    
 
+    /**
+     * Interface for items amount.
+     * @return 
+     */
+    public int getSize() {
+        return this.items.length;
+    }
     
+    /**
+     * Interface for Item by index
+     * @param index
+     * @return
+     * @throws IndexOutOfBoundsException 
+     */
+    public Item getItem(int index) throws IndexOutOfBoundsException {
+        if (index < this.getSize()) {
+            return this.items[index];
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
+    }
     
+    /**
+     * Interface to set Item in Loot List by index
+     * @param item
+     * @param index
+     * @throws IndexOutOfBoundsException 
+     */
+    public void setItem(Item item, int index) throws IndexOutOfBoundsException {
+        if (index < this.getSize()) {
+            this.items[index] = item;
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
+    }
     
     
     
