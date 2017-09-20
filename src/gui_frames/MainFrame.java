@@ -13,6 +13,7 @@ public class MainFrame extends javax.swing.JFrame {
     private Neuron mind;
     
     private final int weightsAmount = 7;
+    private final float thresholdSelecting = (1f / (float)this.weightsAmount) * 0.8f;
     
     
     
@@ -30,12 +31,12 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Starting experiment
      */
-    private void initExperiment() {
+    private void initExperiment() {      
         //Mind
-        mind = new Neuron(this.weightsAmount);
+        this.mind = new Neuron(this.weightsAmount);
         
         //Loot
-        this.generateNextLoot();
+        this.loot = new LootList();
         
         this.render();
     }
@@ -47,17 +48,12 @@ public class MainFrame extends javax.swing.JFrame {
      */
     private void render() {
         //Displaying loot
-        this.lootListPanel.displayLoot(loot);        
+        this.lootListPanel.displayLoot(this.loot);        
         //Setting selections
-        
+        this.lootListPanel.setSelections(this.loot, this.mind, this.thresholdSelecting);
         
         //Mind
-        this.neuronPanel.displayWeights(mind);
-    }
-    
-    
-    private void generateNextLoot() {
-        loot = new LootList();
+        this.neuronPanel.displayWeights(this.mind);
     }
     
     
@@ -109,7 +105,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     //Temporary testing method
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        this.generateNextLoot();
+        loot = new LootList();
     }//GEN-LAST:event_formMouseClicked
 
     /**
