@@ -9,7 +9,11 @@ import neural_network.*;
 
 public class MainFrame extends javax.swing.JFrame {
 
-    LootList loot;
+    private LootList loot;
+    private Neuron mind;
+    
+    private final int weightsAmount = 7;
+    private final float thresholdSelecting = (1f / (float)this.weightsAmount) * 0.8f;
     
     
     
@@ -27,29 +31,29 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Starting experiment
      */
-    private void initExperiment() {
+    private void initExperiment() {      
         //Mind
-
+        this.mind = new Neuron(this.weightsAmount);
         
         //Loot
-        this.generateNextLoot();
+        this.loot = new LootList();
+        
+        this.render();
     }
     
     
-    private void generateNextLoot() {
-        loot = new LootList();
-        this.outputLootList();
-    }
     
     /**
-     * Displaying loot and set selections with neural networks help.
+     * Displaying Loot List, setting selections, displaying weights of mind.
      */
-    private void outputLootList() {
+    private void render() {
         //Displaying loot
-        this.lootListPanel.displayLoot(loot);
-        
+        this.lootListPanel.displayLoot(this.loot);        
         //Setting selections
+        this.lootListPanel.setSelections(this.loot, this.mind, this.thresholdSelecting);
         
+        //Mind
+        this.neuronPanel.displayWeights(this.mind);
     }
     
     
@@ -64,6 +68,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         lootListPanel = new gui_frames.LootListPanel();
+        neuronPanel = new gui_frames.NeuronPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Preffered Loot");
@@ -80,16 +85,19 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lootListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(482, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(neuronPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lootListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(191, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(neuronPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lootListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -97,7 +105,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     //Temporary testing method
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        this.generateNextLoot();
+        loot = new LootList();
     }//GEN-LAST:event_formMouseClicked
 
     /**
@@ -137,5 +145,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private gui_frames.LootListPanel lootListPanel;
+    private gui_frames.NeuronPanel neuronPanel;
     // End of variables declaration//GEN-END:variables
 }

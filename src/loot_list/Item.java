@@ -102,7 +102,7 @@ public class Item {
      * @return 
      */
     private Vector createSignalsVector() {
-        int size = 6;
+        int size = this.QualitiesGradationAmount + 1;
         Vector result = new Vector(size);
         
         int indexOfQuality = this.quality.ordinal();

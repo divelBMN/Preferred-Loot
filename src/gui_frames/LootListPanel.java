@@ -5,8 +5,12 @@
 
 package gui_frames;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
+
 import loot_list.*;
+import neural_network.*;
 
 public class LootListPanel extends javax.swing.JPanel {
 
@@ -37,6 +41,33 @@ public class LootListPanel extends javax.swing.JPanel {
         
         this.lootList.setModel(model);
     }   
+    
+    /**
+     * Displaying selections
+     * @param loot
+     * @param neuron
+     * @param thresholdSelecting 
+     */
+    public void setSelections(LootList loot, Neuron neuron, float thresholdSelecting) {        
+        List<Integer> selectionsList = new ArrayList<>();
+        
+        int size = loot.getSize();
+        for (int i = 0; i < size; i++) {
+            Vector inputSignals = loot.getItem(i).getSignalsVector();
+            float state = neuron.calculateState(inputSignals);
+            if (state >= thresholdSelecting) {
+                selectionsList.add(i);
+            }
+        }
+        
+        size = selectionsList.size();
+        int[] selectedIndices = new int[size];
+        for (int i = 0; i < size; i++) {
+            selectedIndices[i] = selectionsList.get(i);
+        }
+        
+        this.lootList.setSelectedIndices(selectedIndices);
+    }
     
         
 
