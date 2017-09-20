@@ -50,7 +50,7 @@ public class ItemTests {
     }
     
     @Test
-    public void test_Item_quality_BAD_result_signalsVector_1f_0_0_0_0_0() {
+    public void test_Item_quality_BAD_result_signalsVector_1f_0_0_0_0_0_0() {
         Item item = new Item(Item.Quality.BAD);
         Vector signalsVector = item.getSignalsVector();
         assertEquals(signalsVector.getValue(0), 1f, 0);
@@ -59,10 +59,11 @@ public class ItemTests {
         assertEquals(signalsVector.getValue(3), 0, 0);
         assertEquals(signalsVector.getValue(4), 0, 0);
         assertEquals(signalsVector.getValue(5), 0, 0);
+        assertEquals(signalsVector.getValue(6), 0, 0);
     }
     
     @Test
-    public void test_Item_quality_COMMON_result_signalsVector_0_1f_0_0_0_0() {
+    public void test_Item_quality_COMMON_result_signalsVector_0_1f_0_0_0_0_0() {
         Item item = new Item(Item.Quality.COMMON);
         Vector signalsVector = item.getSignalsVector();
         assertEquals(signalsVector.getValue(0), 0, 0);
@@ -71,10 +72,11 @@ public class ItemTests {
         assertEquals(signalsVector.getValue(3), 0, 0);
         assertEquals(signalsVector.getValue(4), 0, 0);
         assertEquals(signalsVector.getValue(5), 0, 0);
+        assertEquals(signalsVector.getValue(6), 0, 0);
     }
     
     @Test
-    public void test_Item_quality_GOOD_result_signalsVector_0_0_1f_0_0_0() {
+    public void test_Item_quality_GOOD_result_signalsVector_0_0_1f_0_0_0_0() {
         Item item = new Item(Item.Quality.GOOD);
         Vector signalsVector = item.getSignalsVector();
         assertEquals(signalsVector.getValue(0), 0, 0);
@@ -83,10 +85,11 @@ public class ItemTests {
         assertEquals(signalsVector.getValue(3), 0, 0);
         assertEquals(signalsVector.getValue(4), 0, 0);
         assertEquals(signalsVector.getValue(5), 0, 0);
+        assertEquals(signalsVector.getValue(6), 0, 0);
     }
     
     @Test
-    public void test_Item_quality_RARE_result_signalsVector_0_0_0_1f_0_0() {
+    public void test_Item_quality_RARE_result_signalsVector_0_0_0_1f_0_0_0() {
         Item item = new Item(Item.Quality.RARE);
         Vector signalsVector = item.getSignalsVector();
         assertEquals(signalsVector.getValue(0), 0, 0);
@@ -95,10 +98,11 @@ public class ItemTests {
         assertEquals(signalsVector.getValue(3), 1f, 0);
         assertEquals(signalsVector.getValue(4), 0, 0);
         assertEquals(signalsVector.getValue(5), 0, 0);
+        assertEquals(signalsVector.getValue(6), 0, 0);
     }
     
     @Test
-    public void test_Item_quality_EPIC_result_signalsVector_0_0_0_0_1f_0() {
+    public void test_Item_quality_EPIC_result_signalsVector_0_0_0_0_1f_0_0() {
         Item item = new Item(Item.Quality.EPIC);
         Vector signalsVector = item.getSignalsVector();
         assertEquals(signalsVector.getValue(0), 0, 0);
@@ -107,10 +111,11 @@ public class ItemTests {
         assertEquals(signalsVector.getValue(3), 0, 0);
         assertEquals(signalsVector.getValue(4), 1f, 0);
         assertEquals(signalsVector.getValue(5), 0, 0);
+        assertEquals(signalsVector.getValue(6), 0, 0);
     }
     
     @Test
-    public void test_Item_quality_SET_result_signalsVector_0_0_0_0_0_1f() {
+    public void test_Item_quality_SET_result_signalsVector_0_0_0_0_0_1f_0() {
         Item item = new Item(Item.Quality.SET);
         Vector signalsVector = item.getSignalsVector();
         assertEquals(signalsVector.getValue(0), 0, 0);
@@ -119,6 +124,7 @@ public class ItemTests {
         assertEquals(signalsVector.getValue(3), 0, 0);
         assertEquals(signalsVector.getValue(4), 0, 0);
         assertEquals(signalsVector.getValue(5), 1f, 0);
+        assertEquals(signalsVector.getValue(6), 0, 0);
     }
     
 }
