@@ -27,20 +27,20 @@ public class Neuron {
      * Weights must be minValue...maxValue.
      * Sum of weights must be 1f.
      * @param weights 
+     * @throws neural_network.WrongSumException 
+     * @throws neural_network.WrongValueException 
      */
-    public Neuron(Vector weights) throws RuntimeException {
+    public Neuron(Vector weights) throws WrongSumException, WrongValueException {
         
-        if (this.valuesInBounds(weights)) {
-            if (this.checkWeightsSum(weights)) {
-                this.weightsVector = weights;
-                
-            } else {
-                throw new RuntimeException("sum of weights must be 1f");
-            }
-            
-        } else {
-            throw new RuntimeException("one or more values is out of min/maxValues");
+        if (!this.valuesInBounds(weights)) {
+            throw new WrongValueException("one or more values is out of min/maxValues");
         }
+        
+        if (!this.checkWeightsSum(weights)) {
+            throw new WrongSumException("sum of weights must be 1f");
+        }
+        
+        this.weightsVector = weights;
     }
     
     /**
@@ -174,4 +174,5 @@ public class Neuron {
         
         return result;
     }
+    
 }
