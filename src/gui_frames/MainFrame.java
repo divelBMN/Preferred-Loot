@@ -41,8 +41,6 @@ public class MainFrame extends javax.swing.JFrame {
         this.render();
     }
     
-    
-    
     /**
      * Displaying Loot List, setting selections, displaying weights of mind.
      */
@@ -74,11 +72,6 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("Preffered Loot");
         setLocation(new java.awt.Point(200, 200));
         setResizable(false);
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,11 +95,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    //Temporary testing method
-    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        loot = new LootList();
-    }//GEN-LAST:event_formMouseClicked
 
     /**
      * @param args the command line arguments

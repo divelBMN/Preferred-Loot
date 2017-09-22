@@ -9,7 +9,8 @@ import java.util.Random;
 
 /**
  * Neuron is elementary particle of Neural Network.
- * 
+ * Calculating state of Neuron by input signals vector.
+ * Correcting weights for neurons learning.
  */
 
 public class Neuron {
