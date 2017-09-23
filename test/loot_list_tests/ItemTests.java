@@ -127,4 +127,40 @@ public class ItemTests {
         assertEquals(signalsVector.getValue(6), 0, 0);
     }
     
+    @Test
+    public void test_Item_quality_BAD_GradationIndex_result_0() {
+        Item item = new Item(Item.Quality.BAD);
+        assertEquals(item.getQualityGradationIndex(), 0);
+    }
+    
+    @Test
+    public void test_Item_quality_COMMON_GradationIndex_result_1() {
+        Item item = new Item(Item.Quality.COMMON);
+        assertEquals(item.getQualityGradationIndex(), 1);
+    }
+    
+    @Test
+    public void test_Item_quality_GOOD_GradationIndex_result_2() {
+        Item item = new Item(Item.Quality.GOOD);
+        assertEquals(item.getQualityGradationIndex(), 2);
+    }
+    
+    @Test
+    public void test_Item_quality_RARE_GradationIndex_result_3() {
+        Item item = new Item(Item.Quality.RARE);
+        assertEquals(item.getQualityGradationIndex(), 3);
+    }
+    
+    @Test
+    public void test_Item_quality_EPIC_GradationIndex_result_4() {
+        Item item = new Item(Item.Quality.EPIC);
+        assertEquals(item.getQualityGradationIndex(), 4);
+    }
+    
+    @Test
+    public void test_Item_quality_SET_GradationIndex_result_5() {
+        Item item = new Item(Item.Quality.SET);
+        assertEquals(item.getQualityGradationIndex(), 5);
+    }
+    
 }
