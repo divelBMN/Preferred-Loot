@@ -4,7 +4,6 @@
  */
 package gui_frames;
 
-import javax.management.RuntimeErrorException;
 import neural_network.Neuron;
 import neural_network.Vector;
 
