@@ -69,6 +69,14 @@ public class LootListPanel extends javax.swing.JPanel {
         this.lootList.setSelectedIndices(selectedIndices);
     }
     
+    /**
+     * Interface for selected indices.
+     * @return 
+     */
+    public int [] getSelectedIndices() {
+        return this.lootList.getSelectedIndices();
+    }
+    
         
 
     /**
