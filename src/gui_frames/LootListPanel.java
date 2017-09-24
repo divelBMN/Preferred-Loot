@@ -75,6 +75,37 @@ public class LootListPanel extends javax.swing.JPanel {
      */
     public int [] getSelectedIndices() {
         return this.lootList.getSelectedIndices();
+        
+    }
+    
+    /**
+     * Interface for unselectedIndices
+     * @return 
+     */
+    public int [] getUnselectedIndices() {
+        return this.generateUnselectedIndicesArray();
+    }
+    
+    
+    
+    /**
+     * Creating array of unselected indices.
+     * @return 
+     */
+    private int[] generateUnselectedIndicesArray() {
+        int size = this.lootList.getModel().getSize();
+        int unselectedIndicesAmount = size - this.lootList.getSelectedIndices().length;
+        int[] result = new int[unselectedIndicesAmount];
+        
+        int index = 0;
+        for (int i = 0; i < size; i++) {
+            if (this.lootList.isSelectedIndex(i)) {
+                result[index] = i;
+                index++;
+            }
+        }
+        
+        return result;
     }
     
         
