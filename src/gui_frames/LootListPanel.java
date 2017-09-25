@@ -75,7 +75,6 @@ public class LootListPanel extends javax.swing.JPanel {
      */
     public int [] getSelectedIndices() {
         return this.lootList.getSelectedIndices();
-        
     }
     
     /**
@@ -86,6 +85,15 @@ public class LootListPanel extends javax.swing.JPanel {
         return this.generateUnselectedIndicesArray();
     }
     
+    /**
+     * Interface for amount unselected Items quality gradations.
+     * @param loot
+     * @return 
+     */
+    public int getUnselectedGradationsAmount(LootList loot) {
+        return this.calculateUnselectedGradationsAmount(loot);
+    }
+        
     
     
     /**
@@ -99,13 +107,35 @@ public class LootListPanel extends javax.swing.JPanel {
         
         int index = 0;
         for (int i = 0; i < size; i++) {
-            if (this.lootList.isSelectedIndex(i)) {
+            if (!this.lootList.isSelectedIndex(i)) {
                 result[index] = i;
                 index++;
             }
         }
         
         return result;
+    }
+    
+    /**
+     * Calculating amount of unselected Items quality gradations.
+     * @param loot
+     * @return 
+     */
+    private int calculateUnselectedGradationsAmount(LootList loot) {        
+        List<Integer> unselectedGradations = new ArrayList<Integer>();
+        unselectedGradations.clear();
+        
+        int[] unselectedIndices = this.generateUnselectedIndicesArray();
+        int size = unselectedIndices.length;
+        for (int i = 0; i < size; i++) {
+            int itemsIndex = unselectedIndices[i];
+            int gradation = loot.getItem(itemsIndex).getQualityGradationIndex();
+            if (!unselectedGradations.contains(gradation)) {
+                unselectedGradations.add(gradation);
+            }
+        }
+        
+        return unselectedGradations.size();
     }
     
         
