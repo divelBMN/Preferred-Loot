@@ -89,6 +89,32 @@ public class Neuron {
         return result;
     }
     
+    /**
+     * Interface for correcting weights Vector.
+     * @param deltaWeightsVector 
+     */
+    public void correctWeights(Vector deltaWeightsVector) throws RuntimeException {
+        
+        int size = this.weightsVector.getSize();
+        if (size == deltaWeightsVector.getSize()) {
+            
+           this.addingDeltaWeights(deltaWeightsVector);
+           this.weightsVector = this.createUnitVector(weightsVector);
+            
+        } else {
+            throw new RuntimeException("different sizes of weightsVector and deltaWeightsVector");
+        }
+        
+    }
+    
+    /**
+     * Interface for weightsSum.
+     * @return 
+     */
+    public float getWeightsSum() {
+        return this.weightsSum;
+    }
+    
     
     
     /**
@@ -174,6 +200,16 @@ public class Neuron {
         }
         
         return result;
+    }
+    
+    private void addingDeltaWeights(Vector deltaWeights) {
+        
+        int size = this.weightsVector.getSize();
+        for (int i = 0; i < size; i++) {
+            float value = this.weightsVector.getValue(i) + deltaWeights.getValue(i);
+            this.weightsVector.setValue(value, i);
+        }
+        
     }
     
 }

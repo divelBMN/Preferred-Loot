@@ -30,7 +30,7 @@ public class NeuronTests {
     }
     
     @Test
-    public void test_neuron_0_0_2f_return_RuntimeException_WrongValueExceptio() {
+    public void test_neuron_0_0_2f_return_RuntimeException_WrongValueException() {
         String exceptionMessage = "";
         
         Vector vector = new Vector(new float[] {0, 0, 2f});
