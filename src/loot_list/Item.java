@@ -63,6 +63,14 @@ public class Item {
         return this.createSignalsVector();
     }
     
+    /**
+     * Interface for index of quality gradation.
+     * @return 
+     */
+    public int getQualityGradationIndex() {
+        return this.quality.ordinal();
+    }
+    
     
      
     /**

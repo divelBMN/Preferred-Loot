@@ -69,6 +69,75 @@ public class LootListPanel extends javax.swing.JPanel {
         this.lootList.setSelectedIndices(selectedIndices);
     }
     
+    /**
+     * Interface for selected indices.
+     * @return 
+     */
+    public int [] getSelectedIndices() {
+        return this.lootList.getSelectedIndices();
+    }
+    
+    /**
+     * Interface for unselectedIndices
+     * @return 
+     */
+    public int [] getUnselectedIndices() {
+        return this.generateUnselectedIndicesArray();
+    }
+    
+    /**
+     * Interface for amount unselected Items quality gradations.
+     * @param loot
+     * @return 
+     */
+    public int getUnselectedGradationsAmount(LootList loot) {
+        return this.calculateUnselectedGradationsAmount(loot);
+    }
+        
+    
+    
+    /**
+     * Creating array of unselected indices.
+     * @return 
+     */
+    private int[] generateUnselectedIndicesArray() {
+        int size = this.lootList.getModel().getSize();
+        int unselectedIndicesAmount = size - this.lootList.getSelectedIndices().length;
+        int[] result = new int[unselectedIndicesAmount];
+        
+        int index = 0;
+        for (int i = 0; i < size; i++) {
+            if (!this.lootList.isSelectedIndex(i)) {
+                result[index] = i;
+                index++;
+            }
+        }
+        
+        return result;
+    }
+    
+    /**
+     * Calculating amount of unselected Items quality gradations.
+     * @param loot
+     * @return 
+     */
+    private int calculateUnselectedGradationsAmount(LootList loot) {        
+        List<Integer> unselectedGradations = new ArrayList<Integer>();
+        unselectedGradations.clear();
+        
+        int[] unselectedIndices = this.generateUnselectedIndicesArray();
+        int size = unselectedIndices.length;
+        for (int i = 0; i < size; i++) {
+            int itemsIndex = unselectedIndices[i];
+            int gradation = loot.getItem(itemsIndex).getQualityGradationIndex();
+            if (!unselectedGradations.contains(gradation)) {
+                unselectedGradations.add(gradation);
+            }
+        }
+        
+        return unselectedGradations.size();
+    }
+    
         
 
     /**

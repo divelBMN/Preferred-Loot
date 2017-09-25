@@ -10,6 +10,8 @@ import static org.junit.Assert.*;
 
 import neural_network.Vector;
 import neural_network.Neuron;
+import neural_network.WrongSumException;
+import  neural_network.WrongValueException;
 
 public class NeuronTests {
     
@@ -20,7 +22,7 @@ public class NeuronTests {
         Vector vector = new Vector(new float[] {0, 0, 1f});
         try {
             Neuron neuron = new Neuron(vector);
-        } catch (RuntimeException e) {
+        } catch (WrongValueException | WrongSumException e) {
             neuronWasCreated = false;
         }
         
@@ -28,28 +30,28 @@ public class NeuronTests {
     }
     
     @Test
-    public void test_neuron_0_0_2f_return_RuntimeException_OutOfBounds() {
+    public void test_neuron_0_0_2f_return_RuntimeException_WrongValueException() {
         String exceptionMessage = "";
         
         Vector vector = new Vector(new float[] {0, 0, 2f});
         try {
-            Neuron neuron = new Neuron(vector);
-        } catch (RuntimeException e) {
-            exceptionMessage = "one or more values is out of min/maxValues";
+            Neuron neuron = new Neuron(vector);            
+        } catch (WrongSumException | WrongValueException e) {
+            exceptionMessage = e.getMessage();
         }
         
         assertEquals(exceptionMessage, "one or more values is out of min/maxValues");
     }
     
     @Test
-    public void test_neuron_0_1f_1f_return_RuntimeException_WrongSum() {
+    public void test_neuron_0_1f_1f_return_RuntimeException_WrongSumException() {
         String exceptionMessage = "";
         
-        Vector vector = new Vector(new float[] {0, 0, 2f});
+        Vector vector = new Vector(new float[] {0, 1f, 1f});
         try {
             Neuron neuron = new Neuron(vector);
-        } catch (RuntimeException e) {
-            exceptionMessage = "sum of weights must be 1f";
+        } catch (WrongSumException | WrongValueException e) {
+            exceptionMessage = e.getMessage();
         }
         
         assertEquals(exceptionMessage, "sum of weights must be 1f");
@@ -67,12 +69,17 @@ public class NeuronTests {
     @Test
     public void test_neuron_02f_03f_05f_inputSignals_1f_1f_1f_result_1f() {
         Vector weights = new Vector(new float[] {.2f, .3f, .5f});
-        Neuron neuron = new Neuron(weights);
         
-        Vector inputSignals = new Vector(new float[] {1f, 1f, 1f});
-        float state = neuron.calculateState(inputSignals);
+        try {
+            Neuron neuron = new Neuron(weights);
+            Vector inputSignals = new Vector(new float[] {1f, 1f, 1f});
+            float state = neuron.calculateState(inputSignals);         
+            assertEquals(state, 1f, 0);
         
-        assertEquals(state, 1f, 0);
+        } catch (WrongValueException | WrongSumException e) {
+            System.err.println(e.getMessage());
+        }
+        
     }
     
     @Test
@@ -80,15 +87,23 @@ public class NeuronTests {
         String exceptionMessage = "";
         
         Vector weights = new Vector(new float[] {.2f, .3f, .5f});
-        Neuron neuron = new Neuron(weights);
-        
-        Vector inputSignals = new Vector(new float[] {1f, 1f});
+        Neuron neuron;
         
         try {
-            float state = neuron.calculateState(inputSignals);
-        } catch (RuntimeException e) {
-            exceptionMessage = "different sizes of weightsVector and inputSignalsVector";
-        }
+            neuron = new Neuron(weights);        
+            Vector inputSignals = new Vector(new float[] {1f, 1f});
+            
+            try {
+                float state = neuron.calculateState(inputSignals);
+            } catch (RuntimeException e) {
+                exceptionMessage = e.getMessage();
+            }
+            
+        } catch (WrongValueException | WrongSumException e) {
+            System.err.println(e.getMessage());            
+        }        
+        
+        
                 
         assertEquals(exceptionMessage, "different sizes of weightsVector and inputSignalsVector");
     }

@@ -9,7 +9,8 @@ import java.util.Random;
 
 /**
  * Neuron is elementary particle of Neural Network.
- * 
+ * Calculating state of Neuron by input signals vector.
+ * Correcting weights for neurons learning.
  */
 
 public class Neuron {
@@ -27,20 +28,20 @@ public class Neuron {
      * Weights must be minValue...maxValue.
      * Sum of weights must be 1f.
      * @param weights 
+     * @throws neural_network.WrongSumException 
+     * @throws neural_network.WrongValueException 
      */
-    public Neuron(Vector weights) throws RuntimeException {
+    public Neuron(Vector weights) throws WrongSumException, WrongValueException {
         
-        if (this.valuesInBounds(weights)) {
-            if (this.checkWeightsSum(weights)) {
-                this.weightsVector = weights;
-                
-            } else {
-                throw new RuntimeException("sum of weights must be 1f");
-            }
-            
-        } else {
-            throw new RuntimeException("one or more values is out of min/maxValues");
+        if (!this.valuesInBounds(weights)) {
+            throw new WrongValueException("one or more values is out of min/maxValues");
         }
+        
+        if (!this.checkWeightsSum(weights)) {
+            throw new WrongSumException("sum of weights must be 1f");
+        }
+        
+        this.weightsVector = weights;
     }
     
     /**
@@ -86,6 +87,32 @@ public class Neuron {
         //Activation function is linear: f(x) = x, i.e. result = result.
         
         return result;
+    }
+    
+    /**
+     * Interface for correcting weights Vector.
+     * @param deltaWeightsVector 
+     */
+    public void correctWeights(Vector deltaWeightsVector) throws RuntimeException {
+        
+        int size = this.weightsVector.getSize();
+        if (size == deltaWeightsVector.getSize()) {
+            
+           this.addingDeltaWeights(deltaWeightsVector);
+           this.weightsVector = this.createUnitVector(weightsVector);
+            
+        } else {
+            throw new RuntimeException("different sizes of weightsVector and deltaWeightsVector");
+        }
+        
+    }
+    
+    /**
+     * Interface for weightsSum.
+     * @return 
+     */
+    public float getWeightsSum() {
+        return this.weightsSum;
     }
     
     
@@ -174,4 +201,15 @@ public class Neuron {
         
         return result;
     }
+    
+    private void addingDeltaWeights(Vector deltaWeights) {
+        
+        int size = this.weightsVector.getSize();
+        for (int i = 0; i < size; i++) {
+            float value = this.weightsVector.getValue(i) + deltaWeights.getValue(i);
+            this.weightsVector.setValue(value, i);
+        }
+        
+    }
+    
 }

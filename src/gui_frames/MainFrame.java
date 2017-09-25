@@ -13,7 +13,7 @@ public class MainFrame extends javax.swing.JFrame {
     private Neuron mind;
     
     private final int weightsAmount = 7;
-    private final float thresholdSelecting = (1f / (float)this.weightsAmount) * 0.8f;
+    private final float thresholdSelecting = (1f / (float)(this.weightsAmount - 1)) * 0.8f;
     
     
     
@@ -41,8 +41,6 @@ public class MainFrame extends javax.swing.JFrame {
         this.render();
     }
     
-    
-    
     /**
      * Displaying Loot List, setting selections, displaying weights of mind.
      */
@@ -69,14 +67,17 @@ public class MainFrame extends javax.swing.JFrame {
 
         lootListPanel = new gui_frames.LootListPanel();
         neuronPanel = new gui_frames.NeuronPanel();
+        pickupLootButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Preffered Loot");
         setLocation(new java.awt.Point(200, 200));
         setResizable(false);
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formMouseClicked(evt);
+
+        pickupLootButton.setText("pickup Loot");
+        pickupLootButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pickupLootButtonActionPerformed(evt);
             }
         });
 
@@ -85,28 +86,41 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(lootListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(neuronPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(neuronPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pickupLootButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(neuronPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lootListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lootListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(neuronPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pickupLootButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Temporary testing method
-    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        loot = new LootList();
-    }//GEN-LAST:event_formMouseClicked
+    private void pickupLootButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pickupLootButtonActionPerformed
+        
+        int [] selectedIndices = this.lootListPanel.getSelectedIndices();
+        int unselectedGradationsAmount = this.lootListPanel.getUnselectedGradationsAmount(loot);
+        Teacher teacher = new Teacher(mind, loot, selectedIndices, unselectedGradationsAmount);
+        teacher.correctNeuron();
+        
+        this.loot = new LootList();
+        this.render();
+        
+    }//GEN-LAST:event_pickupLootButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,5 +160,6 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private gui_frames.LootListPanel lootListPanel;
     private gui_frames.NeuronPanel neuronPanel;
+    private javax.swing.JButton pickupLootButton;
     // End of variables declaration//GEN-END:variables
 }
